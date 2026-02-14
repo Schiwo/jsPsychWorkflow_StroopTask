@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- 
+  This is the main HTML file for the Stroop Task.
+  It sets up the web page and loads all necessary code and styling to run the experiment.
+-->
+<html>
+  <head>  
+    <title>Experiment</title>
+    <!-- written on jsPsych Version 8.2.3 -->
+
+
+
+    <!-- ========== LOAD JSPSYCH LIBRARY ========== -->
+    <script src="https://unpkg.com/jspsych@8.2.3"></script>
+
+    <!-- ========== SECTION 3: LOAD JSPSYCH PLUGINS ========== -->
+    <!-- Plugins are add-ons to jsPsych that create specific types of experimental trials -->
+    <!-- Each script below adds a different trial type to the experiment -->
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <!-- Above: Plugin for showing text/images and recording keyboard responses -->
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.2"></script>
+    <!-- Above: Plugin for displaying instructions to participants -->
+    <script src="https://unpkg.com/@jspsych/plugin-call-function@1.1.2"></script>
+    <!-- Above: Plugin for running custom JavaScript functions during the experiment -->
+
+    <!-- ========== LOAD EXTERNAL LIBRARIES ========== -->
+    <!-- These are additional JavaScript libraries that provide useful functions -->
+    <script src="https://unpkg.com/mathjs@latest"></script>
+    <!-- Above: Math library for mathematical operations -->
+
+    <!-- ========== LOAD CSS ========== -->
+    <!-- CSS (Cascading Style Sheets) controls how things look on the page -->
+    <link href="https://unpkg.com/jspsych@8.2.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <!-- Above: Load the default jsPsych styling from the internet -->
+
+
+
+
+
+    <!-- ========== LOAD WORKFLOW SCRIPTS ========== -->
+    <!-- These scripts are custom files we created to define the experiment logic -->
+    <script src="STEP1_counterbalancing.js"></script>
+    <script src="STEP2_designTrials.js"></script>
+    <script src="STEP3_functionalElements.js"></script>
+    <script src="STEP4_timelineBuilder.js"></script>
+
+  </head>
+
+  <body>
+    <script>
+
+
+      
+    // ========== a. Initialize jsPsych and create the timeline structure.  ==========   
+
+    var jsPsych = initJsPsych(); // Create the main jsPsych object that will control the entire experiment
+    var experimentTimeline = []; //  This array will hold all the trials and blocks that make up the experiment
+       
+      // Build the timeline: Get all the elements for the experimentTimeline from timelineBuilder()
+      // This is where the magic happens and where we define what the experiment actually looks like.
+      // Continue in the file STEP4_timelineBuilder.js to continue with the code flow.  
+      experimentTimeline = timelineBuilder(experimentTimeline);
+
+      // Start the experiment: Tell jsPsych to start running all the trials in the timeline
+      jsPsych.run(experimentTimeline);
+    </script>
+  </body>
+
+</html>
