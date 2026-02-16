@@ -1,9 +1,21 @@
+// ============================================================================
+// FUNCTIONAL ELEMENTS FOR STROOP TASK
+// ============================================================================
+
+/**
+ * Build the "non-trial" parts of the experiment (welcome, consent, instructions, etc.).
+ *
+ * @returns {Object} Collection of jsPsych timeline elements
+ */
 function buildFunctionalElements() {
+	// ========== Welcome screen ==========
 	const welcome = {
 		type: jsPsychHtmlKeyboardResponse,
 		stimulus: "<p>Welcome to the study.</p><p>Press any key to continue.</p>",
 	};
 
+	// ========== Consent screen ==========
+	// If the participant declines, the experiment ends immediately.
 	const informedConsent = {
 		type: jsPsychHtmlKeyboardResponse,
 		stimulus:
@@ -14,12 +26,15 @@ function buildFunctionalElements() {
 			"<p>Press 'y' to consent or 'n' to decline.</p>",
 		choices: ["y", "n"],
 		on_finish: (data) => {
+			// If the user presses "n", stop the study
 			if (data.response === "n") {
 				jsPsych.abortExperiment("Participant did not consent.");
 			}
 		},
 	};
 
+	// ========== Instructions ==========
+	// Multiple pages that explain the task and response keys.
 	const instructions = {
 		type: jsPsychInstructions,
 		pages: [
@@ -45,9 +60,12 @@ function buildFunctionalElements() {
 		allow_backward: true,
 	};
 
+	// ========== Data display (demo only) ==========
+	// Shows collected data on-screen as CSV. In real studies, send to a server.
 	const dataDisplay = {
 		type: jsPsychHtmlKeyboardResponse,
 		stimulus: () => {
+			// Pull only the keyboard-response trials and convert to CSV
 			const summary = jsPsych.data.get().filter({ trial_type: "html-keyboard-response" });
 			return (
 				"<p>At this point you would send the collected data to the server.</p>" +
@@ -59,12 +77,14 @@ function buildFunctionalElements() {
 		prompt: "<p>Press space to finish.</p>",
 	};
 
+	// ========== End screen ==========
 	const endScreen = {
 		type: jsPsychHtmlKeyboardResponse,
 		stimulus: "<p>Thank you for participating.</p><p>You may now close this window.</p>",
 		choices: "NO_KEYS"
 	};
 
+	// Return all elements so they can be added to the timeline in STEP4
 	return {
 		welcome,
 		informedConsent,
