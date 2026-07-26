@@ -59,4 +59,5 @@ This repository is released under the **GNU GPL-3.0** license.
 
 If you use this template to build your own study, please cite:
 
-> REFERENCE WILL COME SOON
+**Schiltenwolf, M., & Gollwitzer, M. (2026). *Online Behavioral Experiments with jsPsych: A Workflow Guide*. PsyArXiv. https://doi.org/10.31234/osf.io/u4fhk_v1**
+
