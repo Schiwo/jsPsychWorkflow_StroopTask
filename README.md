@@ -6,6 +6,8 @@ The goal is to highlight a structured wokflow when creating online experiments w
 
 This repository is meant as a **template**, not as an experiment that can be deployed directly.
 
+A demonstration version of the experiment can be found [here](https://jatos.mindprobe.eu/publix/d7qZxwuzbIe).
+
 ---
 
 ## What’s Included
@@ -15,6 +17,8 @@ This repository is meant as a **template**, not as an experiment that can be dep
 - Generate counterbalanced list of trial conditions  
 - 2 congruency levels × 4 colors  
 - Simple transition constraint: no immediate color repetitions
+- An alternative generateTrialList(jsPsych) based on jsPsych's native jsPsych.randomization functions (factorial, 
+repeat, shuffle) is included at the bottom of the file, commented out. To use it, uncomment it and remove/rename the custom function (same name). It suits short trial lists with simple constraints; for long lists, shuffle-and-check becomes infeasible (e.g., 96 trials need ~2.6 × 10⁹ shuffles on average) and the custom algorithm should be used.
 
 ### Step 2:	Designing a trial
 - `STEP2_designTrials.js`

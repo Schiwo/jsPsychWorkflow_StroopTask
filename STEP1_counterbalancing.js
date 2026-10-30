@@ -116,3 +116,51 @@ function generateTrialList() {
   return trialList;
 }
 
+// ============================================================================
+// ALTERNATIVE: COUNTERBALANCING WITH jsPsych's NATIVE FUNCTIONALITY
+// ============================================================================
+// HOW TO USE:
+//   1. Remove the leading "// " of every line of the code below.
+//   2. Add comments "//" or delete the custom generateTrialList() above (same name!).
+// Input/output behavior is the same: returns an array of [congruency, color]
+// pairs (24 trials, each combination 3 times, no color repeated on
+// consecutive trials). Suitable for short lists and simple constraints; the
+// shuffle-and-check approach becomes infeasible for long lists (e.g., 96 trials
+// need ~2.6e9 shuffles on average). Use the custom algorithm above then.
+//
+// function generateTrialList(jsPsych) {
+//   const maxAttempts = 100000;
+//
+//   // Factorial design: congruency (0 = congruent, 1 = incongruent) x
+//   // ink color (0 = blue, 1 = green, 2 = yellow, 3 = red), 3 repetitions each
+//   const factors = {
+//     congruency: [0, 1],
+//     inkColor: [0, 1, 2, 3]
+//   };
+//   const repetitions = 3;
+//   const conditions = jsPsych.randomization.factorial(factors, repetitions);
+//
+//   // Unequal frequencies (optional): e.g., incongruent 3x as often as congruent
+//   //   const base = jsPsych.randomization.factorial(factors, 1);
+//   //   const reps = base.map(c => (c.congruency === 0 ? 3 : 1));
+//   //   const conditions = jsPsych.randomization.repeat(base, reps);
+//
+//   // Shuffle until no ink color appears on consecutive trials
+//   for (let attempt = 0; attempt < maxAttempts; attempt++) {
+//     const candidate = jsPsych.randomization.shuffle(conditions);
+//
+//     let valid = true;
+//     for (let index = 1; index < candidate.length; index++) {
+//       if (candidate[index].inkColor === candidate[index - 1].inkColor) {
+//         valid = false;
+//         break;
+//       }
+//     }
+//
+//     if (valid) {
+//       // Convert to the [congruency, color] format of the custom version
+//       return candidate.map(trial => [trial.congruency, trial.inkColor]);
+//     }
+//   }
+//   throw new Error("No valid sequence found within the maximum number of attempts.");
+// }
